@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
 public class Skier implements Serializable {
-//fourat was here
+//fourat was here hhh
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long numSkier;
