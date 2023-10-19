@@ -16,6 +16,7 @@ import java.util.List;
 public class InstructorRestController {
 
     private final IInstructorServices instructorServices;
+    private Instructor instructor;
 
     @Operation(description = "Add Instructor")
     @PostMapping("/add")
@@ -33,11 +34,12 @@ public class InstructorRestController {
         return instructorServices.retrieveAllInstructors();
     }
 
-    @Operation(description = "Update Instructor")
-    @PutMapping("/update")
-    public Instructor updateInstructor(@RequestBody Instructor instructor) {
-        return instructorServices.updateInstructor(instructor);
-    }
+@Operation(description = "Update Instructor")
+@PutMapping("/update")
+public Instructor updateInstructor(@RequestBody Instructor updatedInstructor) {
+    this.instructor = updatedInstructor;
+    return instructorServices.updateInstructor(updatedInstructor);
+}
 
 
     @Operation(description = "Retrieve Instructor by Id")

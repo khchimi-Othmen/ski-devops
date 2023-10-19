@@ -12,19 +12,22 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+
 @Slf4j
 @AllArgsConstructor
 @Service
-public class RegistrationServicesImpl implements  IRegistrationServices{
+public class RegistrationServicesImpl implements IRegistrationServices {
 
     private IRegistrationRepository registrationRepository;
     private ISkierRepository skierRepository;
     private ICourseRepository courseRepository;
 
-
     @Override
     public Registration addRegistrationAndAssignToSkier(Registration registration, Long numSkier) {
         Skier skier = skierRepository.findById(numSkier).orElse(null);
+        if (skier == null) {
+            return null;
+        }
         registration.setSkier(skier);
         return registrationRepository.save(registration);
     }
@@ -33,6 +36,9 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     public Registration assignRegistrationToCourse(Long numRegistration, Long numCourse) {
         Registration registration = registrationRepository.findById(numRegistration).orElse(null);
         Course course = courseRepository.findById(numCourse).orElse(null);
+        if (registration == null || course == null) {
+            return null;
+        }
         registration.setCourse(course);
         return registrationRepository.save(registration);
     }
@@ -43,7 +49,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         Skier skier = skierRepository.findById(numSkieur).orElse(null);
         Course course = courseRepository.findById(numCours).orElse(null);
 
-        if (skier == null || course == null) {
+        if (skier == null || course == null || registration == null) {
             return null;
         }
 
@@ -52,47 +58,34 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
             return null;
         }
 
-        int ageSkieur = Period.between(skier.getDateOfBirth(), LocalDate.now()).getYears();
-        log.info("Age " + ageSkieur);
+        int ageSkieur = calculateAge(skier.getDateOfBirth());
 
         if (course.getTypeCourse() == TypeCourse.INDIVIDUAL) {
-            return handleIndividualCourse(registration, skier, course);
-        } else if (course.getTypeCourse() == TypeCourse.COLLECTIVE_CHILDREN && ageSkieur < 16) {
-            return handleCollectiveChildrenCourse(registration, skier, course);
-        } else if (course.getTypeCourse() == TypeCourse.COLLECTIVE_ADULT && ageSkieur >= 16) {
-            return handleCollectiveAdultCourse(registration, skier, course);
-        } else {
-            log.info("Sorry, your age doesn't allow you to register for this course.");
-            return null;
-        }
-    }
-
-    private Registration handleIndividualCourse(Registration registration, Skier skier, Course course) {
-        log.info("Add without tests");
-        return assignRegistration(registration, skier, course);
-    }
-
-    private Registration handleCollectiveChildrenCourse(Registration registration, Skier skier, Course course) {
-        if (registrationRepository.countByCourseAndNumWeek(course, registration.getNumWeek()) < 6) {
-            log.info("Course successfully added!");
+            return assignRegistration(registration, skier, course);
+        } else if (course.getTypeCourse() == TypeCourse.COLLECTIVE_CHILDREN && ageSkieur < 16 && isCourseAvailable(course, registration.getNumWeek())) {
+            return assignRegistration(registration, skier, course);
+        } else if (course.getTypeCourse() == TypeCourse.COLLECTIVE_ADULT && ageSkieur >= 16 && isCourseAvailable(course, registration.getNumWeek())) {
             return assignRegistration(registration, skier, course);
         } else {
-            log.info("Full Course! Please choose another week to register!");
+            logRegistrationError(ageSkieur, course.getTypeCourse());
             return null;
         }
     }
 
-    private Registration handleCollectiveAdultCourse(Registration registration, Skier skier, Course course) {
-        if (registrationRepository.countByCourseAndNumWeek(course, registration.getNumWeek()) < 6) {
-            log.info("Course successfully added!");
-            return assignRegistration(registration, skier, course);
-        } else {
-            log.info("Full Course! Please choose another week to register!");
-            return null;
-        }
+    private boolean isCourseAvailable(Course course, int numWeek) {
+        return registrationRepository.countByCourseAndNumWeek(course, numWeek) < 6;
     }
 
-    private Registration assignRegistration (Registration registration, Skier skier, Course course){
+    private int calculateAge(LocalDate dateOfBirth) {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
+
+    private void logRegistrationError(int age, TypeCourse courseType) {
+        log.info("Sorry, your age doesn't allow you to register for this course! " +
+                "Try to Register to a " + (courseType == TypeCourse.COLLECTIVE_CHILDREN ? "Collective Adult" : "Collective Child") + " Course...");
+    }
+
+    private Registration assignRegistration(Registration registration, Skier skier, Course course) {
         registration.setSkier(skier);
         registration.setCourse(course);
         return registrationRepository.save(registration);
@@ -102,5 +95,4 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support) {
         return registrationRepository.numWeeksCourseOfInstructorBySupport(numInstructor, support);
     }
-
 }
