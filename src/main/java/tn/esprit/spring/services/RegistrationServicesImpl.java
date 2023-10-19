@@ -12,19 +12,22 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+
 @Slf4j
 @AllArgsConstructor
 @Service
-public class RegistrationServicesImpl implements  IRegistrationServices{
+public class RegistrationServicesImpl implements IRegistrationServices {
 
     private IRegistrationRepository registrationRepository;
     private ISkierRepository skierRepository;
     private ICourseRepository courseRepository;
 
-
     @Override
     public Registration addRegistrationAndAssignToSkier(Registration registration, Long numSkier) {
         Skier skier = skierRepository.findById(numSkier).orElse(null);
+        if (skier == null) {
+            return null;
+        }
         registration.setSkier(skier);
         return registrationRepository.save(registration);
     }
@@ -33,6 +36,9 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     public Registration assignRegistrationToCourse(Long numRegistration, Long numCourse) {
         Registration registration = registrationRepository.findById(numRegistration).orElse(null);
         Course course = courseRepository.findById(numCourse).orElse(null);
+        if (registration == null || course == null) {
+            return null;
+        }
         registration.setCourse(course);
         return registrationRepository.save(registration);
     }
@@ -43,71 +49,43 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         Skier skier = skierRepository.findById(numSkieur).orElse(null);
         Course course = courseRepository.findById(numCours).orElse(null);
 
-        if (skier == null || course == null) {
+        if (skier == null || course == null || registration == null) {
             return null;
         }
 
-        if (isAlreadyRegistered(registration.getNumWeek(), skier.getNumSkier(), course.getNumCourse())) {
-            logRegistrationError(registration.getNumWeek());
+        if (registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(registration.getNumWeek(), skier.getNumSkier(), course.getNumCourse()) >= 1) {
+            log.info("Sorry, you're already registered for this course of the week: " + registration.getNumWeek());
             return null;
         }
 
         int ageSkieur = calculateAge(skier.getDateOfBirth());
 
-        switch (course.getTypeCourse()) {
-            case INDIVIDUAL:
-                return assignRegistration(registration, skier, course);
-
-            case COLLECTIVE_CHILDREN:
-                if (isAgeValidForChild(ageSkieur) && isCourseAvailable(course, registration.getNumWeek())) {
-                    return assignRegistration(registration, skier, course);
-                } else {
-                    logRegistrationError(ageSkieur < 16);
-                    return null;
-                }
-
-            default:
-                if (isAgeValidForAdult(ageSkieur) && isCourseAvailable(course, registration.getNumWeek())) {
-                    return assignRegistration(registration, skier, course);
-                } else {
-                    logRegistrationError(ageSkieur >= 16);
-                    return null;
-                }
+        if (course.getTypeCourse() == TypeCourse.INDIVIDUAL) {
+            return assignRegistration(registration, skier, course);
+        } else if (course.getTypeCourse() == TypeCourse.COLLECTIVE_CHILDREN && ageSkieur < 16 && isCourseAvailable(course, registration.getNumWeek())) {
+            return assignRegistration(registration, skier, course);
+        } else if (course.getTypeCourse() == TypeCourse.COLLECTIVE_ADULT && ageSkieur >= 16 && isCourseAvailable(course, registration.getNumWeek())) {
+            return assignRegistration(registration, skier, course);
+        } else {
+            logRegistrationError(ageSkieur, course.getTypeCourse());
+            return null;
         }
-    }
-
-    private boolean isAlreadyRegistered(int numWeek, Long numSkier, Long numCourse) {
-        return registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(numWeek, numSkier, numCourse) >= 1;
-    }
-
-    private int calculateAge(LocalDate dateOfBirth) {
-        return Period.between(dateOfBirth, LocalDate.now()).getYears();
-    }
-
-    private boolean isAgeValidForChild(int age) {
-        return age < 16;
-    }
-
-    private boolean isAgeValidForAdult(int age) {
-        return age >= 16;
     }
 
     private boolean isCourseAvailable(Course course, int numWeek) {
         return registrationRepository.countByCourseAndNumWeek(course, numWeek) < 6;
     }
 
-    private void logRegistrationError(boolean isChild) {
-        log.info("Sorry, your age doesn't allow you to register for this " +
-                "course! Try to Register to a " + (isChild ? "Collective Adult" : "Collective Child") + " Course...");
+    private int calculateAge(LocalDate dateOfBirth) {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
-    private void logRegistrationError(int numWeek) {
-        log.info("Sorry, you're already registered for this course of the week: " + numWeek);
+    private void logRegistrationError(int age, TypeCourse courseType) {
+        log.info("Sorry, your age doesn't allow you to register for this course! " +
+                "Try to Register to a " + (courseType == TypeCourse.COLLECTIVE_CHILDREN ? "Collective Adult" : "Collective Child") + " Course...");
     }
 
-
-
-    private Registration assignRegistration (Registration registration, Skier skier, Course course){
+    private Registration assignRegistration(Registration registration, Skier skier, Course course) {
         registration.setSkier(skier);
         registration.setCourse(course);
         return registrationRepository.save(registration);
@@ -117,5 +95,4 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support) {
         return registrationRepository.numWeeksCourseOfInstructorBySupport(numInstructor, support);
     }
-
 }

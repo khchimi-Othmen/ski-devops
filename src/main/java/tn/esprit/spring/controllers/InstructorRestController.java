@@ -34,12 +34,13 @@ public class InstructorRestController {
         return instructorServices.retrieveAllInstructors();
     }
 
-    @Operation(description = "Update Instructor")
-    @PutMapping("/update")
-    public Instructor updateInstructor(@RequestBody Instructor updatedInstructor) {
-        this.instructor = updatedInstructor;
-        return instructorServices.updateInstructor(updatedInstructor);
-    }
+@Operation(description = "Update Instructor")
+@PutMapping("/update")
+public Instructor updateInstructor(@RequestBody Instructor updatedInstructor) {
+    this.instructor = updatedInstructor;
+    return instructorServices.updateInstructor(updatedInstructor);
+}
+
 
     @Operation(description = "Retrieve Instructor by Id")
     @GetMapping("/get/{id-instructor}")
