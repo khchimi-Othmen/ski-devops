@@ -24,8 +24,6 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-;
-        import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 public class SubscriptionServicesImplTest {
@@ -41,7 +39,7 @@ public class SubscriptionServicesImplTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -50,7 +48,7 @@ public class SubscriptionServicesImplTest {
         sampleSubscription.setTypeSub(TypeSubscription.ANNUAL); // Set the type as needed
         sampleSubscription.setStartDate(LocalDate.of(2023,02,02));
         sampleSubscription.setStartDate(LocalDate.of(2023,03,02));
-        sampleSubscription.setPrice((float) 25);
+        sampleSubscription.setPrice((float) 25.13);
         // Mock behavior of subscriptionRepository.save
         Mockito.when(subscriptionRepository.save(Mockito.any(Subscription.class)))
                 .thenReturn(sampleSubscription);
@@ -91,6 +89,9 @@ public class SubscriptionServicesImplTest {
         Set<Subscription> sampleSubscriptions = new HashSet<>();
         Subscription subscription1 = new Subscription();
         subscription1.setTypeSub(TypeSubscription.MONTHLY);
+        subscription1.setStartDate(LocalDate.of(2023,02,02));
+        subscription1.setStartDate(LocalDate.of(2023,03,02));
+        subscription1.setPrice((float) 25.13);
         sampleSubscriptions.add(subscription1);
 
         // Mock behavior of repository method
