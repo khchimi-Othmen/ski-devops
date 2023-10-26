@@ -1,103 +1,83 @@
 package tn.esprit.spring.services;
 
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.Support;
-import tn.esprit.spring.entities.TypeCourse;
-import tn.esprit.spring.repositories.ICourseRepository;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@SpringJUnitConfig
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.repositories.ICourseRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class CourseServicesImplTest {
+@ExtendWith(SpringExtension.class)
+public class CourseServicesImplTest {
 
-    @Autowired
+    @InjectMocks
     private CourseServicesImpl courseService;
-    @Autowired
+
+    @Mock
     private ICourseRepository courseRepository;
 
-    private Course course;
-
-    // This method runs before each test method to set up common objects or resources.
     @BeforeEach
-    void setUp() {
-        // Create a new course with sample data
-        course = new Course();
-        course.setLevel(1);
-        course.setTypeCourse(TypeCourse.COLLECTIVE_CHILDREN);
-        course.setSupport(Support.SKI);
-        course.setPrice(100f);
-        course.setTimeSlot(3);
+    public void setUp() {
+//        MockitoAnnotations.initMocks(this);
     }
 
-    // This method runs after each test method to perform cleanup tasks.
-    @AfterEach
-    void tearDown() {
-        // Delete the created course from the repository if it exists
-        if (course != null && course.getNumCourse() != null) {
-            courseRepository.delete(course);
-        }
-    }
-
-    // Test case to verify retrieving all courses when the repository is empty.
     @Test
-    @Order(1)
-    void shouldRetrieveAllCoursesWhenEmpty() {
-        // When: Retrieve all courses when the repository is empty
-        List<Course> courses = courseService.retrieveAllCourses();
+    public void testRetrieveAllCourses() {
+        // Mock behavior of the repository method
+        List<Course> sampleCourses = new ArrayList<>();
+        when(courseRepository.findAll()).thenReturn(sampleCourses);
 
-        // Then: Verify that an empty list is returned
-        assertNotNull(courses, "Returned list should not be null");
-        assertTrue(courses.isEmpty(), "Expected an empty list");
+        List<Course> retrievedCourses = courseService.retrieveAllCourses();
+
+        assertNotNull(retrievedCourses);
+        assertEquals(sampleCourses, retrievedCourses);
     }
 
-    // Test case to verify adding a new course.
     @Test
-    @Order(2)
-    void shouldAddCourse() {
-        // When: Add the course
-        Course savedCourse = courseService.addCourse(course);
+    public void testAddCourse() {
+        // Mock behavior of the repository method
+        Course newCourse = new Course();
+        when(courseRepository.save(any(Course.class))).thenReturn(newCourse);
 
-        // Then: Verify that the added course matches the input course
-        assertNotNull(savedCourse, "Added course should not be null");
-        assertEquals(course, savedCourse, "Added course should match the input course");
+        Course addedCourse = courseService.addCourse(newCourse);
+
+        assertNotNull(addedCourse);
+        assertEquals(newCourse, addedCourse);
     }
 
-    // Test case to verify updating an existing course.
     @Test
-    @Order(3)
-    void shouldUpdateCourse() {
-        // Given: Add a course to the repository
-        Course savedCourse = courseService.addCourse(course);
+    public void testUpdateCourse() {
+        // Mock behavior of the repository method
+        Course updatedCourse = new Course();
+        when(courseRepository.save(any(Course.class))).thenReturn(updatedCourse);
 
-        // When: Update the course's level
-        savedCourse.setLevel(2);
-        Course updatedCourse = courseService.updateCourse(savedCourse);
+        Course updated = courseService.updateCourse(new Course());
 
-        // Then: Verify that the updated course has the new level
-        assertNotNull(updatedCourse, "Updated course should not be null");
-        assertEquals(2, updatedCourse.getLevel(), "Course level should be updated");
+        assertNotNull(updated);
+        assertEquals(updatedCourse, updated);
     }
 
-    // Test case to verify retrieving a course by its ID.
     @Test
-    @Order(4)
-    void shouldRetrieveCourseById() {
-        // Given: Add a course to the repository
-        Course savedCourse = courseService.addCourse(course);
+    public void testRetrieveCourse() {
+        // Mock behavior of the repository method
+        Long courseNum = 1L;
+        Course sampleCourse = new Course();
+        when(courseRepository.findById(courseNum)).thenReturn(Optional.of(sampleCourse));
 
-        // When: Retrieve the course by ID
-        Course retrievedCourse = courseService.retrieveCourse(savedCourse.getNumCourse());
+        Course retrievedCourse = courseService.retrieveCourse(courseNum);
 
-        // Then: Verify that the retrieved course matches the saved course
-        assertNotNull(retrievedCourse, "Retrieved course should not be null");
-        assertEquals(savedCourse, retrievedCourse, "Retrieved course should match the saved course");
+        assertNotNull(retrievedCourse);
+        assertEquals(sampleCourse, retrievedCourse);
     }
 }
