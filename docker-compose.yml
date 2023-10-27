@@ -30,6 +30,12 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+  adminer:
+    container_name: adminer
+    image: adminer
+    ports:
+      - "8085:8080"
+
 volumes:
     app_data:  # Define the app_data volume
     db:
