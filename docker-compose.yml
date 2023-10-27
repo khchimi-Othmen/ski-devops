@@ -31,8 +31,8 @@ services:
       - db:/var/lib/mysql
 
   adminer:
-    container_name: adminer:latest
-    image: adminer
+    container_name: adminer
+    image: adminer:latest
     restart: always
     ports:
       - "8085:8080"
