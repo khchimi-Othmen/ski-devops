@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SubscriptionService {
-  private url = 'http://localhost:8089/api/';
+  private url = 'http://192.168.1.13:8089/api/';
 
   constructor(private http: HttpClient) { }
   AddSubscription(Sub: Subscription): Observable<Subscription> {
