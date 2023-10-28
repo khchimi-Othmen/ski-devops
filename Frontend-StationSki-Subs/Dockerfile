@@ -9,8 +9,10 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install project dependencies
-RUN npm install --legacy-peer-deps
-RUN npm install  @angular/material @angular/cdk --legacy-peer-deps
+RUN npm uninstall @angular/cdk @angular/material
+
+RUN npm install --legacy-peer-deps --no-optional
+
 
 # Copy the rest of your app's source code to the container
 COPY . .
