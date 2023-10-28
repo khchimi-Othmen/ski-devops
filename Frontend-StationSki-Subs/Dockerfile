@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install project dependencies
-RUN npm uninstall @angular/cdk @angular/material
+RUN npm uninstall @angular/cdk @angular/material --legacy-peer-deps
 
 RUN npm install --legacy-peer-deps --no-optional
 
