@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SubscriptionService {
-  private url = 'http://192.168.1.13:8089/api/';
- 
+  private url = 'http://localhost:8089/api/';
+
   constructor(private http: HttpClient) { }
   AddSubscription(Sub: Subscription): Observable<Subscription> {
     return this.http.post<Subscription>(this.url +"subscription/add",Sub,{responseType:'text' as 'json'});
