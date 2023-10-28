@@ -1,0 +1,15 @@
+<div class="container">
+
+    <h2>Subscription List</h2>
+    <select [(ngModel)]="selectedType" (change)="onTypeChange(selectedType)">
+    <option value="ANNUAL">Annual</option>
+      <option value="MONTHLY">Monthly</option>
+      <option value="SEMESTRIEL">Semestriel</option>
+    </select>
+    <ul>
+      <li *ngFor="let subscription of filteredSubscriptions">
+        {{ subscription.numSub }} - <span class="date">{{ subscription.startDate | date }}</span> <span class="arrow">→</span> <span class="date">{{ subscription.endDate | date }}</span> - <span class="price">{{ subscription.price | currency: 'USD' }}</span> - {{ subscription.typeSub }}
+      </li>
+    </ul>
+    </div>
+    
