@@ -10,6 +10,7 @@ COPY package*.json ./
 
 # Install project dependencies
 RUN npm install --legacy-peer-deps
+RUN npm install  @angular/material @angular/cdk --legacy-peer-deps
 
 # Copy the rest of your app's source code to the container
 COPY . .
