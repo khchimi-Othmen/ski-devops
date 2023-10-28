@@ -33,7 +33,7 @@ services:
     container_name: angular-app
     image: medalihz/frontend  # Replace with your Angular app image
     ports:
-      - "8087:4200"  # Map port 4200 from the container to port 4200 on the host
+      - "4200:4200"  # Map port 4200 from the container to port 4200 on the host
 
   adminer:
     container_name: adminer
