@@ -1,0 +1,60 @@
+
+<div class="container-xxl py-5 bg-white">
+    <div class="container">
+      <div class="row g-0">
+        <div class="col-lg-6 wow fadeIn centerdiv" data-wow-delay="0.1s">
+          <div class="bg-transparent p-5">
+            <h1 class="text-uppercase mb-4 text-center titre">Add Subscription</h1>
+  
+            <form (ngSubmit)="AddSub()" id="feedback-form">
+              <!-- Form fields -->
+              <div class="row g-3">
+             
+                <div class="form-floating">
+                  <input required type="date" id="startDate" [(ngModel)]="Sub.startDate" name="startDate" class="form-control bg-white" style="height: 100px;border-radius:8px"  />
+                  <label for="message" class="thick">Start Date</label>
+                </div>
+              </div>
+              <br>
+              <div class="row g-3">
+             
+                <div class="form-floating">
+                  <input required type="date" id="endDate" [(ngModel)]="Sub.endDate" name="endDate" class="form-control bg-white" style="height: 100px;border-radius:8px"  />
+                  <label for="message" class="thick">End Date</label>
+                </div>
+              </div>
+              <br>
+            <div class="col-12">
+                <div class="form-floating">
+                    <input required type="number" id="price" [(ngModel)]="Sub.price" name="price" class="form-control bg-white" style="height: 100px;border-radius:8px"  />
+                    <label for="message" class="thick">Price</label>
+                  </div>
+            </div>
+            <br>
+  
+            <div class="form-floating mb-3">
+                <select required [(ngModel)]="Sub.typeSub" name="typeSub" id="typeSub" class="form-control bg-transparent">
+                    <option value="ANNUAL">ANNUAL</option>
+                    <option value="MONTHLY">MONTHLY</option>
+                    <option value="SEMESTRIEL">SEMESTRIEL</option>
+                          </select>
+                <label for="name">Subscription Type</label>
+                </div>
+              <br>
+  
+            <div class="col-12">
+              <div class="form-group">
+  
+                <button class="btn btn-primary col-12 " style="border-radius:8px" type="submit" name="submit_reg">Ajouter</button>
+                                  </div>
+            </div>
+  
+  
+              <!-- Submit button -->
+            </form>
+          </div>
+        </div>
+  
+          
+                
+          

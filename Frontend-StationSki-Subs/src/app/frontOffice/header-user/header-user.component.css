@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
+
+
+.titre {
+    color: red;
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+  }

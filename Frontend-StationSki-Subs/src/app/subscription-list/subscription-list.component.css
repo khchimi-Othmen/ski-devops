@@ -1,0 +1,46 @@
+/* subscription-list.component.css */
+
+/* Style the container */
+.container {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Style the select input */
+  select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Style the list */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  /* Style list items */
+  li {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover effect on list items */
+  li:hover {
+    background-color: #e0e0e0;
+  }
+  .price {
+    color: red;
+  }
+  .date {
+    color: rgb(251, 176, 0); /* Change the color to your desired color */
+    font-style: italic; /* Apply italic style to the date */
+  }
+  .arrow {
+    font-size: 20px; /* Adjust the size as needed */
+    margin: 0 5px; /* Add some spacing between date and arrow */
+
+  }
