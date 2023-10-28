@@ -11,10 +11,6 @@ import { AllTemplateUserComponent } from './frontOffice/all-template-user/all-te
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
-import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { SubscriptionListComponent } from './subscription-list/subscription-list.component';
 
@@ -28,21 +24,19 @@ import { SubscriptionListComponent } from './subscription-list/subscription-list
     BodyUserComponent,
     FooterUserComponent,
     AllTemplateUserComponent,
-    
-    SubscriptionComponent,
-         SubscriptionListComponent,
 
-  
+    SubscriptionComponent,
+    SubscriptionListComponent,
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatIconModule,
-    
+
+
 
   ],
   providers: [],
