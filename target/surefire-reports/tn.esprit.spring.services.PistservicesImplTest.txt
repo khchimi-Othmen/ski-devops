@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: tn.esprit.spring.services.PistservicesImplTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.163 s <<< FAILURE! - in tn.esprit.spring.services.PistservicesImplTest
+shouldRetrievePiste  Time elapsed: 0.047 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Retrieved piste should match the saved piste ==> expected: <tn.esprit.spring.entities.Piste@102aa5fc> but was: <tn.esprit.spring.entities.Piste@4f9980e1>
+	at tn.esprit.spring.services.PistservicesImplTest.shouldRetrievePiste(PistservicesImplTest.java:85)
+
