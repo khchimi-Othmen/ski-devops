@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tn.esprit.spring.services.CourseServicesImplTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.288 s <<< FAILURE! - in tn.esprit.spring.services.CourseServicesImplTest
-shouldRetrieveCourseById  Time elapsed: 0.044 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: Retrieved course should match the saved course ==> expected: <tn.esprit.spring.entities.Course@6e1ad658> but was: <tn.esprit.spring.entities.Course@73dd0f23>
-	at tn.esprit.spring.services.CourseServicesImplTest.shouldRetrieveCourseById(CourseServicesImplTest.java:101)
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.233 s - in tn.esprit.spring.services.CourseServicesImplTest
