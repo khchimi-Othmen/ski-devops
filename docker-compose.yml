@@ -31,21 +31,11 @@ services:
       - db:/var/lib/mysql
 
   mysqld_exporter:
-    container_name: mysqld_exporter
     image: prom/mysqld-exporter
-    command:
-      - '--collect.global_status'
-      - '--collect.info_schema.innodb_metrics'
-      - '--collect.auto_increment.columns'
-      - '--collect.info_schema.processlist'
     environment:
       DATA_SOURCE_NAME: "root:@tcp(mysqldb:3306)/stationSki"
-    volumes:
-      - /home/vagrant/.my.cnf:/root/.my.cnf
     ports:
       - "9104:9104"
-    depends_on:
-      - mysqldb
 
   angular-app:
     container_name: angular-app
