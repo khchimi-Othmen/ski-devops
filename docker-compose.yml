@@ -41,7 +41,7 @@ services:
     environment:
       DATA_SOURCE_NAME: "root:@tcp(mysqldb:3306)/stationSki"
     volumes:
-      - ~/.my.cnf:/root/.my.cnf # Path within the virtual machine
+      - /home/vagrant/.my.cnf:/root/.my.cnf
     ports:
       - "9104:9104"
 
