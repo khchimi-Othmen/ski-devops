@@ -20,15 +20,24 @@ services:
 
   mysqldb:
     container_name: mysqldb
-    image: mysql:5.7  # You can use a different version if needed
+    image: mysql:5.7
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
       MYSQL_DATABASE: stationSki
+      PROMETHEUS_EXPORTER_ENABLED: "true" # Enable the Prometheus exporter
     ports:
-      - "3306:3306"  # Map MySQL's port to the host
-
+      - "3306:3306"
+      - "9104:9104" # Map MySQL's metrics port to the host
     volumes:
       - db:/var/lib/mysql
+
+  mysqld_exporter:
+      image: prom/mysqld-exporter
+      environment:
+        DATA_SOURCE_NAME: "root:@tcp(mysqldb:3306)/stationSki"
+      ports:
+        - "9104:9104"
+
   angular-app:
     container_name: angular-app
     image: medalihz/frontend  # Replace with your Angular app image
