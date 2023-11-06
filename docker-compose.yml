@@ -27,16 +27,23 @@ services:
       PROMETHEUS_EXPORTER_ENABLED: "true" # Enable the Prometheus exporter
     ports:
       - "3306:3306"
-      - "9104:9104" # Map MySQL's metrics port to the host
     volumes:
       - db:/var/lib/mysql
 
   mysqld_exporter:
+      container_name: mysqld_exporter
       image: prom/mysqld-exporter
+      command:
+        - '--collect.global_status'
+        - '--collect.info_schema.innodb_metrics'
+        - '--collect.auto_increment.columns'
+        - '--collect.info_schema.processlist'
       environment:
         DATA_SOURCE_NAME: "root:@tcp(mysqldb:3306)/stationSki"
       ports:
         - "9104:9104"
+
+
 
   angular-app:
     container_name: angular-app
