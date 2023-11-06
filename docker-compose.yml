@@ -31,17 +31,19 @@ services:
       - db:/var/lib/mysql
 
   mysqld_exporter:
-      container_name: mysqld_exporter
-      image: prom/mysqld-exporter
-      command:
-        - '--collect.global_status'
-        - '--collect.info_schema.innodb_metrics'
-        - '--collect.auto_increment.columns'
-        - '--collect.info_schema.processlist'
-      environment:
-        DATA_SOURCE_NAME: "root:@tcp(mysqldb:3306)/stationSki"
-      ports:
-        - "9104:9104"
+    container_name: mysqld_exporter
+    image: prom/mysqld-exporter
+    command:
+      - '--collect.global_status'
+      - '--collect.info_schema.innodb_metrics'
+      - '--collect.auto_increment.columns'
+      - '--collect.info_schema.processlist'
+    environment:
+      DATA_SOURCE_NAME: "root:@tcp(mysqldb:3306)/stationSki"
+    volumes:
+      - ~/.my.cnf:/root/.my.cnf # Path within the virtual machine
+    ports:
+      - "9104:9104"
 
 
 
