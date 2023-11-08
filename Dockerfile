@@ -1,5 +1,5 @@
 FROM openjdk:17-alpine
 
-ADD target/station_ski-*.jar /station_ski.jar
+ADD target/gestion-station-ski-*.jar /gestion-station-ski.jar
 
-CMD ["java", "-jar", "/station_ski.jar"]
+CMD ["java", "-jar", "/gestion-station-ski.jar"]
