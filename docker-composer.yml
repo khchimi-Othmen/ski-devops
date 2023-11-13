@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=
+      - MYSQL_DATABASE=root
     ports:
       - 3306:3306
     networks:
