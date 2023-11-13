@@ -6,6 +6,7 @@ networks:
 
 services:
   mysqldatabase:
+    container_name: mysql
     image: mysql:latest
     restart: unless-stopped
     environment:
@@ -13,6 +14,9 @@ services:
       MYSQL_DATABASE: stationSki
     ports:
       - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+
     networks:
       - backendinstructor
 
@@ -32,8 +36,13 @@ services:
             "spring.jpa.hibernate.ddl-auto" : "update",
             "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect"
           }'
+    volumes:
+      - app_data:/app/data
     networks:
       - backendinstructor
 
 
 
+volumes:
+  app_data:  # Define the app_data volume
+  db:
