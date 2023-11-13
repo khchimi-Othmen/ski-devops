@@ -1,21 +1,12 @@
 package tn.esprit.spring.entities;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,5 +23,27 @@ public class Instructor implements Serializable {
 	LocalDate dateOfHire;
 	@OneToMany
 	Set<Course> courses;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Instructor instructor = (Instructor) o;
+
+		if (!Objects.equals(numInstructor, instructor.numInstructor)) return false;
+		if (!Objects.equals(firstName, instructor.firstName)) return false;
+		if (!Objects.equals(lastName, instructor.lastName)) return false;
+		if (!Objects.equals(dateOfHire, instructor.dateOfHire)) return false;
+		// Add comparison for other attributes as needed
+		// ...
+
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(numInstructor, firstName, lastName, dateOfHire);
+	}
 
 }

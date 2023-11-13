@@ -13,9 +13,16 @@
 	<version>1.0</version>
 	<name>gestion-station-ski</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
 	<properties>
-		<java.version>1.8</java.version>
+
+		<java.version>8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+
+		<sonar.language>java</sonar.language>
+
+		<jacoco.version>0.8.4</jacoco.version>
+		<surefire.version>2.22.2</surefire.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,12 +33,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.12.4</version> <!-- Use the latest version -->
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -58,17 +74,40 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<type>jar</type>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+
 	</dependencies>
+
 	<distributionManagement>
 		<repository>
-			<id>deploymentRepo</id>
+			<id>nexusRepo</id>
 			<name>Nexus Repository</name>
-			<url>http://192.168.1.100:8081/repository/maven-releases/</url>
+			<url>http://192.168.33.10:8081/repository/maven-releases/</url>
 		</repository>
+		<snapshotRepository>
+			<id>nexusRepo</id>
+			<name>Snapshot</name>
+			<url>http://192.168.33.10:8081/repository/maven-snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -80,6 +119,28 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+
+
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
