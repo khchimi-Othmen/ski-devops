@@ -1,0 +1,47 @@
+version : '3'
+services:
+  mysqldatabase:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=
+    ports:
+      - 3306:3306
+    networks:
+      - backendnetwork
+
+
+  app_achat_back:
+    image : ahmedmabrouk902/backend
+    depends_on:
+      - mysqldatabase
+    restart: on-failure
+    ports:
+      - 8089:8089
+    environment:
+      SPRING_APPLICATION_JSON: '{
+            "spring.datasource.url"  : "jdbc:mysql://mysqldatabase:3306/stationSki?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+            "spring.datasource.username" : "root",
+            "spring.datasource.password" : "root",
+            "spring.jpa.show-sql" : "true",
+            "spring.jpa.hibernate.ddl-auto" : "update",
+            "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect"
+          }'
+    networks:
+      - backendnetwork
+#      - frontend-net
+
+
+#  app_achat_front :
+#    image : ahmedazizelj/achat_front
+#    ports:
+#      - 80:80
+#    depends_on :
+#      - app_achat_back
+#    restart : on-failure
+#    networks :
+#      - frontend-net
+#networks:
+#  backend-net :
+#  frontend-net :
