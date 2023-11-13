@@ -1,7 +1,9 @@
 version : '3'
 networks:
-backendinstructor:
-external: true
+  backendinstructor:
+    external: true
+
+
 services:
   mysqldatabase:
     image: mysql:latest
