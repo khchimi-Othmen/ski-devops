@@ -10,7 +10,7 @@ services:
     image: mysql:latest
     restart: unless-stopped
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: stationSki
     ports:
       - 3306:3306
