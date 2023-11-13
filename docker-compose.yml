@@ -1,7 +1,5 @@
 version : '3'
-networks:
-  backendinstructor:
-    external: true
+
 
 
 services:
@@ -46,3 +44,6 @@ services:
 volumes:
   app_data:  # Define the app_data volume
   db:
+
+networks:
+  backendinstructor:
