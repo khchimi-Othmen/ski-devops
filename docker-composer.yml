@@ -1,4 +1,7 @@
 version : '3'
+networks:
+backendinstructor:
+external: true
 services:
   mysqldatabase:
     image: mysql:latest
@@ -11,10 +14,10 @@ services:
     ports:
       - 3306:3306
     networks:
-      - backendnetwork
+      - backendinstructor
 
 
-  app_achat_back:
+  backend:
     image : ahmedmabrouk902/backend
     depends_on:
       - mysqldatabase
@@ -23,12 +26,11 @@ services:
       - 8089:8089
     environment:
       SPRING_APPLICATION_JSON: '{
-            "spring.datasource.url"  : "jdbc:mysql://mysqldatabase:3306/stationSki?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-            "spring.datasource.username" : "root",
+            "spring.datasource.url"  : "jdbc:mysql://mysqldatabase:3306/stationSki?createDatabaseIfNotExist=true&useUni>            "spring.datasource.username" : "root",
             "spring.datasource.password" : "root",
             "spring.jpa.show-sql" : "true",
             "spring.jpa.hibernate.ddl-auto" : "update",
             "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect"
           }'
     networks:
-      - backendnetwork
+      - backendinstructor
