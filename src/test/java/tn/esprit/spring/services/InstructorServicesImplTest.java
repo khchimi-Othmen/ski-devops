@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringJUnitConfig
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
- class InstructorServicesImplTest {
+public class InstructorServicesImplTest {
 
     @Autowired
     private IInstructorServices instructorService;
