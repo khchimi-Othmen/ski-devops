@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.internal.matchers.Null;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tn.esprit.spring.entities.Skier;
@@ -25,7 +26,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class SubscriptionServicesImplTest {
 
     @InjectMocks
@@ -47,7 +48,6 @@ public class SubscriptionServicesImplTest {
         Subscription sampleSubscription = new Subscription();
         sampleSubscription.setTypeSub(TypeSubscription.ANNUAL); // Set the type as needed
         sampleSubscription.setStartDate(LocalDate.of(2023,02,02));
-        sampleSubscription.setStartDate(LocalDate.of(2023,03,02));
         sampleSubscription.setPrice((float) 25.13);
         // Mock behavior of subscriptionRepository.save
         Mockito.when(subscriptionRepository.save(Mockito.any(Subscription.class)))
