@@ -14,22 +14,22 @@ public class PisteServicesImpl implements  IPisteServices{
 
     @Override
     public List&lt;Piste&gt; retrieveAllPistes() {
-<span class="fc" id="L17">        return pisteRepository.findAll();</span>
+<span class="nc" id="L17">        return pisteRepository.findAll();</span>
     }
 
     @Override
     public Piste addPiste(Piste piste) {
-<span class="fc" id="L22">        return pisteRepository.save(piste);</span>
+<span class="nc" id="L22">        return pisteRepository.save(piste);</span>
     }
 
     @Override
     public void removePiste(Long numPiste) {
-<span class="fc" id="L27">        pisteRepository.deleteById(numPiste);</span>
-<span class="fc" id="L28">    }</span>
+<span class="nc" id="L27">        pisteRepository.deleteById(numPiste);</span>
+<span class="nc" id="L28">    }</span>
 
     @Override
     public Piste retrievePiste(Long numPiste) {
-<span class="fc" id="L32">        return pisteRepository.findById(numPiste).orElse(null);</span>
+<span class="nc" id="L32">        return pisteRepository.findById(numPiste).orElse(null);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

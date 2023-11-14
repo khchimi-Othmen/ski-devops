@@ -62,12 +62,12 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     @Override
     @Scheduled(cron = &quot;*/30 * * * * *&quot;) /* Cron expression to run a job every 30 secondes */
     public void retrieveSubscriptions() {
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        for (Subscription sub: subscriptionRepository.findDistinctOrderByEndDateAsc()) {</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        for (Subscription sub: subscriptionRepository.findDistinctOrderByEndDateAsc()) {</span>
 <span class="nc" id="L66">            Skier   aSkier = skierRepository.findBySubscription(sub);</span>
 <span class="nc" id="L67">            log.info(sub.getNumSub().toString() + &quot; | &quot;+ sub.getEndDate().toString()</span>
 <span class="nc" id="L68">                    + &quot; | &quot;+ aSkier.getFirstName() + &quot; &quot; + aSkier.getLastName());</span>
 <span class="nc" id="L69">        }</span>
-<span class="fc" id="L70">    }</span>
+<span class="nc" id="L70">    }</span>
 
    // @Scheduled(cron = &quot;* 0 9 1 * *&quot;) /* Cron expression to run a job every month at 9am */
     @Scheduled(cron = &quot;*/30 * * * * *&quot;) /* Cron expression to run a job every 30 secondes */

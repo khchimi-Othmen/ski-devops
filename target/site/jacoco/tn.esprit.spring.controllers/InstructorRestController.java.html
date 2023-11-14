@@ -3,7 +3,9 @@
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.Dto.UpdatedInstructorDto;
 import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.services.IInstructorServices;
 
@@ -12,7 +14,7 @@ import java.util.List;
 @Tag(name = &quot;\uD83D\uDC69\u200D\uD83C\uDFEB Instructor Management&quot;)
 @RestController
 @RequestMapping(&quot;/instructor&quot;)
-<span class="fc" id="L15">@RequiredArgsConstructor</span>
+<span class="fc" id="L17">@RequiredArgsConstructor</span>
 public class InstructorRestController {
 
     private final IInstructorServices instructorServices;
@@ -21,31 +23,38 @@ public class InstructorRestController {
     @Operation(description = &quot;Add Instructor&quot;)
     @PostMapping(&quot;/add&quot;)
     public Instructor addInstructor(@RequestBody Instructor instructor){
-<span class="nc" id="L24">        return  instructorServices.addInstructor(instructor);</span>
+<span class="nc" id="L26">        return  instructorServices.addInstructor(instructor);</span>
     }
     @Operation(description = &quot;Add Instructor and Assign To Course&quot;)
     @PutMapping(&quot;/addAndAssignToCourse/{numCourse}&quot;)
     public Instructor addAndAssignToInstructor(@RequestBody Instructor instructor, @PathVariable(&quot;numCourse&quot;)Long numCourse){
-<span class="nc" id="L29">        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);</span>
+<span class="nc" id="L31">        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);</span>
     }
     @Operation(description = &quot;Retrieve all Instructors&quot;)
     @GetMapping(&quot;/all&quot;)
     public List&lt;Instructor&gt; getAllInstructors(){
-<span class="nc" id="L34">        return instructorServices.retrieveAllInstructors();</span>
+<span class="nc" id="L36">        return instructorServices.retrieveAllInstructors();</span>
     }
 
-@Operation(description = &quot;Update Instructor&quot;)
-@PutMapping(&quot;/update&quot;)
-public Instructor updateInstructor(@RequestBody Instructor updatedInstructor) {
-<span class="nc" id="L40">    this.instructor = updatedInstructor;</span>
-<span class="nc" id="L41">    return instructorServices.updateInstructor(updatedInstructor);</span>
-}
+    @Operation(description = &quot;Update Instructor&quot;)
+    @PutMapping(&quot;/update&quot;)
+    public Instructor updateInstructor(@RequestBody UpdatedInstructorDto updatedInstructorDto) {
+<span class="nc" id="L42">        Instructor updatedInstructor = mapDtoToInstructor(updatedInstructorDto);</span>
+<span class="nc" id="L43">        this.instructor = updatedInstructor;</span>
+<span class="nc" id="L44">        return instructorServices.updateInstructor(updatedInstructor);</span>
+    }
+    // Mapping method to convert DTO to internal model
+    private Instructor mapDtoToInstructor(UpdatedInstructorDto updatedInstructorDto) {
+<span class="nc" id="L48">        Instructor instructor = new Instructor();</span>
+<span class="nc" id="L49">        BeanUtils.copyProperties(updatedInstructorDto, instructor);</span>
+<span class="nc" id="L50">        return instructor;</span>
+    }
 
 
     @Operation(description = &quot;Retrieve Instructor by Id&quot;)
     @GetMapping(&quot;/get/{id-instructor}&quot;)
     public Instructor getById(@PathVariable(&quot;id-instructor&quot;) Long numInstructor){
-<span class="nc" id="L48">        return instructorServices.retrieveInstructor(numInstructor);</span>
+<span class="nc" id="L57">        return instructorServices.retrieveInstructor(numInstructor);</span>
     }
 
 }
