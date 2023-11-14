@@ -6,7 +6,7 @@ pipeline {
         stage('Checkout GIT'){
          steps {
              echo 'Pulling ...';
-              git branch: 'chebbi',
+              git branch: 'mohamed_chebbi',
               url : 'https://github.com/khchimi-Othmen/ski-devops.git'
          } 
 
