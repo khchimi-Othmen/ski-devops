@@ -24,26 +24,4 @@ public class Instructor implements Serializable {
 	@OneToMany
 	Set<Course> courses;
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Instructor instructor = (Instructor) o;
-
-		if (!Objects.equals(numInstructor, instructor.numInstructor)) return false;
-		if (!Objects.equals(firstName, instructor.firstName)) return false;
-		if (!Objects.equals(lastName, instructor.lastName)) return false;
-		if (!Objects.equals(dateOfHire, instructor.dateOfHire)) return false;
-		// Add comparison for other attributes as needed
-		// ...
-
-		return true;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(numInstructor, firstName, lastName, dateOfHire);
-	}
-
-}

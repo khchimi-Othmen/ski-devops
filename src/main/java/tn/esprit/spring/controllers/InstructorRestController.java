@@ -3,9 +3,7 @@ package tn.esprit.spring.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.Dto.UpdatedInstructorDto;
 import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.services.IInstructorServices;
 
@@ -36,20 +34,11 @@ public class InstructorRestController {
         return instructorServices.retrieveAllInstructors();
     }
 
-@Operation(description = "Update Instructor")
-@PutMapping("/update")
-public Instructor updateInstructor(@RequestBody UpdatedInstructorDto updatedInstructorDto) {
-    Instructor updatedInstructor = mapDtoToInstructor(updatedInstructorDto);
-    this.instructor = updatedInstructor;
-    return instructorServices.updateInstructor(updatedInstructor);
-}
-    // Mapping method to convert DTO to internal model
-    private Instructor mapDtoToInstructor(UpdatedInstructorDto updatedInstructorDto) {
-        Instructor instructor = new Instructor();
-        BeanUtils.copyProperties(updatedInstructorDto, instructor);
-        // If there are additional fields not covered by copyProperties, set them individually
-        // Example: instructor.setOtherField(updatedInstructorDto.getOtherField());
-        return instructor;
+    @Operation(description = "Update Instructor")
+    @PutMapping("/update")
+    public Instructor updateInstructor(@RequestBody Instructor updatedInstructor) {
+        this.instructor = updatedInstructor;
+        return instructorServices.updateInstructor(updatedInstructor);
     }
 
 
