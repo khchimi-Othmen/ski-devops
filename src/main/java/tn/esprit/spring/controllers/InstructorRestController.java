@@ -38,9 +38,9 @@ public class InstructorRestController {
 
 @Operation(description = "Update Instructor")
 @PutMapping("/update")
-public Instructor updateInstructor(@RequestBody Instructor updatedInstructor) {
+public Instructor updateInstructor(@RequestBody UpdatedInstructorDto updatedInstructorDto) {
     Instructor updatedInstructor = mapDtoToInstructor(updatedInstructorDto);
-        this.instructor = updatedInstructor;
+    this.instructor = updatedInstructor;
     return instructorServices.updateInstructor(updatedInstructor);
 }
     // Mapping method to convert DTO to internal model
