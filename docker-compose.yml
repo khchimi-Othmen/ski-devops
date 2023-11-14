@@ -17,7 +17,8 @@ services:
       - mysqldb  # Ensure the MySQL service is started before the application
     volumes:
       - app_data:/app/data
-
+    networks:
+      - backend-network
   mysqldb:
     container_name: mysqldb
     image: mysql:5.7
@@ -42,7 +43,8 @@ services:
     image: medalihz/frontend  # Replace with your Angular app image
     ports:
       - "4200:4200"  # Map port 4200 from the container to port 4200 on the host
-
+    networks:
+      - backend-network
   adminer:
     container_name: adminer
    # image: adminer:latest
@@ -54,3 +56,6 @@ services:
 volumes:
     app_data:  # Define the app_data volume
     db:
+
+networks:
+  backend-network:
