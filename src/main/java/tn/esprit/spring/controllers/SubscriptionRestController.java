@@ -16,8 +16,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/subscription")
 @RequiredArgsConstructor
-//@CrossOrigin("*")
-//@CrossOrigin(origins = "http://192.168.1.13:4200")
+@CrossOrigin("*")
 public class SubscriptionRestController {
 
     private final ISubscriptionServices subscriptionServices;
