@@ -19,7 +19,7 @@ public class Instructor implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 <span class="fc" id="L20">	Long numInstructor;</span>
 <span class="fc" id="L21">	String firstName;</span>
-<span class="nc" id="L22">	String lastName;</span>
+<span class="fc" id="L22">	String lastName;</span>
 <span class="nc" id="L23">	LocalDate dateOfHire;</span>
 	@OneToMany
 <span class="fc" id="L25">	Set&lt;Course&gt; courses;</span>
