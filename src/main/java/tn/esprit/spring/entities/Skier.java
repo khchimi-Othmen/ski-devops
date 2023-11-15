@@ -22,7 +22,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
 public class Skier implements Serializable {
-//fourat was here hhhh
+//fourat cherif
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	Long numSkier;
@@ -31,6 +31,7 @@ public class Skier implements Serializable {
 	LocalDate dateOfBirth;
 	String city;
 
+	@JsonIgnore
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	Subscription subscription;
 
@@ -43,6 +44,7 @@ public class Skier implements Serializable {
 	private Set<Piste> pistes;
 
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "skier")
 	Set<Registration> registrations;
 
