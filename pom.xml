@@ -78,13 +78,13 @@
 					<goal>repackage</goal>
 				   </goals>
 				<configuration>
-				
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<finalName>SKI</finalname>
 				</configuration>
 					</execution>
 				</executions>
