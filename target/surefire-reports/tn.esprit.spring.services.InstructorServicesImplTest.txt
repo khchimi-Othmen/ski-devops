@@ -1,24 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tn.esprit.spring.services.InstructorServicesImplTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 5.432 s <<< FAILURE! - in tn.esprit.spring.services.InstructorServicesImplTest
-tn.esprit.spring.services.InstructorServicesImplTest.shouldAddInstructor  Time elapsed: 0 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
-Caused by: java.lang.NullPointerException
-
-tn.esprit.spring.services.InstructorServicesImplTest.shouldRetrieveInstructor  Time elapsed: 0 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
-Caused by: java.lang.NullPointerException
-
-tn.esprit.spring.services.InstructorServicesImplTest.shouldUpdateInstructor  Time elapsed: 0 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
-Caused by: java.lang.NullPointerException
-
-tn.esprit.spring.services.InstructorServicesImplTest.shouldAddInstructorAndAssignToCourse  Time elapsed: 0 s  <<< ERROR!
-java.lang.IllegalStateException: Failed to load ApplicationContext
-Caused by: org.springframework.context.ApplicationContextException: Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
-Caused by: java.lang.NullPointerException
-
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.253 s - in tn.esprit.spring.services.InstructorServicesImplTest

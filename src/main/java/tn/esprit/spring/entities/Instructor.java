@@ -1,4 +1,5 @@
 package tn.esprit.spring.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,6 +22,7 @@ public class Instructor implements Serializable {
 	String firstName;
 	String lastName;
 	LocalDate dateOfHire;
+	@JsonIgnore
 	@OneToMany
 	Set<Course> courses;
 
