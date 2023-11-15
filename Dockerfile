@@ -4,10 +4,10 @@ COPY pom.xml .
 RUN mvn dependency:resolve
 
 COPY src/ src/
-RUN mvn clean install 
+//RUN mvn clean install 
 
 FROM openjdk:11.0
 WORKDIR /app
-COPY --from=build /app/target/Uber.jar /app/
+COPY --from=build /app/target/gestion-station-ski-1.0.jar /app/
 EXPOSE 8082
-CMD ["java","-jar","app.jar"]
+CMD ["java","-jar","gestion-station-ski-1.0.jar"]
