@@ -32,7 +32,7 @@ pipeline {
         }
 		stage('SonarQube analysis 1') {
             steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=lassoued'
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=hamza'
             }
         }
         stage('JUnit and Mockito Test'){
@@ -65,7 +65,7 @@ pipeline {
 
          stage('Build image') {
           steps {
-            sh "docker build -t lassoued404/imagedevops ."
+            sh "docker build -t chebbi404/imagedevops ."
        		}
        		}
     		
@@ -73,7 +73,7 @@ pipeline {
  	    steps {
  	       withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
  			
-        	 sh "docker push lassoued404/imagedevops"
+        	 sh "docker push chebbi404/imagedevops"
         	}
         	}
         	}
@@ -83,7 +83,7 @@ pipeline {
  	    steps {
  	       withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
  			
-        	 sh "docker rmi -f lassoued404/imagedevops"
+        	 sh "docker rmi -f chebbi404/imagedevops"
         	}
         	}
         	}
