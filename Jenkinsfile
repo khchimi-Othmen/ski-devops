@@ -49,7 +49,7 @@ pipeline{
                                 nexusArtifactUploader artifacts: [
                                 [
                                 artifactId: 'gestion-station-ski',
-                                classifier: '', file:'target/.esprit.spring gestion-station-ski.1.0.jar',
+                                classifier: '',
                                 type: 'jar'
                                 ]
                                 ],
