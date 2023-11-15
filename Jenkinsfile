@@ -26,16 +26,7 @@ pipeline{
                 }
             }
         }
-        stage('Maven install'){
-
-            steps{
-
-                script{
-
-                    sh 'mvn  install'
-                }
-            }
-        }
+       
   stage('Static code analysis'){
 
             steps{
@@ -44,7 +35,7 @@ pipeline{
 
                     withSonarQubeEnv(credentialsId: 'SONARQUBE-TOKEN') {
 
-                        sh 'mvn  package sonar:sonar'
+                        sh 'mvn sonar:sonar'
                     }
                    }
 
@@ -56,21 +47,7 @@ pipeline{
 
                                 script{
 
-                                nexusArtifactUploader artifacts: [
-                                [
-                                artifactId: 'gestion-station-ski',
-                                classifier: '', file:'target/Ski.jar',
-                                type: 'jar'
-                                ]
-                                ],
-                                credentialsId: 'nexus-auth',
-                                groupId:'tn.esprit.spring',
-                                nexusUrl: '192.168.1.3:8081',
-                                nexusVersion: 'nexus3',
-                                protocol: 'http',
-                                repository: 'maven-central-repository',
-                                version: '1.0'                    }
-                            }
+                              nexusArtifactUploader credentialsId: 'nexus-auth', groupId: 'tn.esprit.spring', nexusUrl: '192.168.1.3:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-central-repository', version: '1.0'
 
                         }
                  
