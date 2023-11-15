@@ -79,7 +79,6 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<fileName>SKI</fileName>
 				</configuration>
 			</plugin>
 		</plugins>
