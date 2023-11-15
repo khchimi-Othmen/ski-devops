@@ -59,7 +59,12 @@ pipeline{
                 sh "docker push tasnim12/registration:1.0.0"
             }
         }
-        
+        stage('Docker compose') {
+            steps {
+                sh 'docker compose up -d'
+            }
+        }
+
         
         
 }
