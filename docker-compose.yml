@@ -24,7 +24,7 @@ services:
       MYSQL_DATABASE: test
       MYSQL_ROOT_PASSWORD: root
 
-   angular-app:
+  angular-app:
         image: fourat13/alpine:1.0.0-Front
         build: .
         ports:
