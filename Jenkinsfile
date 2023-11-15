@@ -43,15 +43,24 @@ pipeline{
             }
              
 
-     stage('Déploiement dans Nexus') {
+
+
+ stage('Build image') {
             steps {
-                sh 'mvn deploy -DskipTests'
-                
+                sh 'docker build -t tasnim12/registration:1.0.0 .'
             }
         }
         
-
+        
+        
+      stage('Push image in Docker Hub') {
+            steps {
+                sh "docker login -u tasnim12 -p tasnim123456"
+                sh "docker push tasnim12/registration:1.0.0"
+            }
+        }
+        
+        
+        
 }
-
-
 }
