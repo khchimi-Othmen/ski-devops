@@ -32,7 +32,7 @@ pipeline{
 
                 script{
 
-                    sh 'mvn clean install'
+                    sh 'mvn  install'
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline{
 
                     withSonarQubeEnv(credentialsId: 'SONARQUBE-TOKEN') {
 
-                        sh 'mvn clean package sonar:sonar'
+                        sh 'mvn  package sonar:sonar'
                     }
                    }
 
