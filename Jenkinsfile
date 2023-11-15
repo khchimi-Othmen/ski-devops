@@ -49,9 +49,9 @@ pipeline{
 
                                   script{
 
-                                      sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
-                                      sh 'docker image tag  $JOB_NAME:v1.$BUILD_ID tasnim12/$JOB_NAME:v1.$BUILD_ID'
-                                      sh 'docker image tag  $JOB_NAME:v1.$BUILD_ID tasnim12/$JOB_NAME:latest'
+                                      sh 'docker image build -t ski:v1.$BUILD_ID .'
+                                      sh 'docker image tag  ski:v1.$BUILD_ID tasnim12/ski:v1.$BUILD_ID'
+                                      sh 'docker image tag  ski:v1.$BUILD_ID tasnim12/ski:latest'
 
                                   }
                               }
@@ -64,8 +64,8 @@ pipeline{
 
                                       withCredentials([string(credentialsId: 'git_creds', variable: 'docker_hub_cred')]) {
                                       sh 'docker login -u tasnim12 -p ${docker_hub_cred}'
-                                      sh 'docker image push  tasnim12/$JOB_NAME:v1.$BUILD_ID'
-                                      sh 'docker image push  tasnim12/$JOB_NAME:latest'
+                                      sh 'docker image push  tasnim12/ski:v1.$BUILD_ID'
+                                      sh 'docker image push  tasnim12/ski:latest'
                   }
 
                                   }
