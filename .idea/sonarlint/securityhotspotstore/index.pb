@@ -26,3 +26,5 @@ u
 Esrc/main/java/tn/esprit/spring/services/SubscriptionServicesImpl.java,d\c\dc280a9271809c8500db57875e2294465d671151
 i
 9src/main/java/tn/esprit/spring/entities/Subscription.java,b\1\b14f6a0a178231e0f89e93b66a3e59d59cba7516
+s
+Csrc/main/java/tn/esprit/spring/controllers/SkierRestController.java,1\6\168ff8f345bf5f6d587643a1ae98c8a1a3f893bf

@@ -1,5 +1,5 @@
 
 ^
-java:S2259T"CA "NullPointerException" could be thrown; "skier" is nullable here.(åçþ‚ýÿÿÿÿ
-^
 java:S22594"CA "NullPointerException" could be thrown; "skier" is nullable here.(ô²´úÿÿÿÿ
+^
+java:S2259T"CA "NullPointerException" could be thrown; "skier" is nullable here.(åçþ‚ýÿÿÿÿ
