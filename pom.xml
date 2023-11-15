@@ -84,6 +84,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					    <finalName>Ski</finalName>
 				</configuration>
 					</execution>
 				</executions>
