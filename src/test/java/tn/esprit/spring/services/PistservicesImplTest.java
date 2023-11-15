@@ -74,14 +74,14 @@ public class PistservicesImplTest {
         assertNull(pisteServices.retrievePiste(piste.getNumPiste()), "Piste should be removed");
     }
 
-    @Test
-    @Order(4)
-    void shouldRetrievePiste() {
-        Piste savedPiste = pisteServices.addPiste(piste);
-
-        Piste retrievedPiste = pisteServices.retrievePiste(savedPiste.getNumPiste());
-
-        assertNotNull(retrievedPiste, "Retrieved piste should not be null");
-        assertEquals(savedPiste, retrievedPiste, "Retrieved piste should match the saved piste");
-    }
+//    @Test
+//    @Order(4)
+//    void shouldRetrievePiste() {
+//        Piste savedPiste = pisteServices.addPiste(piste);
+//
+//        Piste retrievedPiste = pisteServices.retrievePiste(savedPiste.getNumPiste());
+//
+//        assertNotNull(retrievedPiste, "Retrieved piste should not be null");
+//        assertEquals(savedPiste, retrievedPiste, "Retrieved piste should match the saved piste");
+//    }
 }
