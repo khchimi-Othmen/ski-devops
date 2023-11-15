@@ -34,6 +34,5 @@ tn\esprit\spring\services\PisteServicesImpl.class
 tn\esprit\spring\entities\Color.class
 tn\esprit\spring\services\SkierServicesImpl$1.class
 tn\esprit\spring\services\IPisteServices.class
-tn\esprit\spring\configs\OpenAPIConfig.class
 tn\esprit\spring\entities\Instructor.class
 tn\esprit\spring\entities\TypeCourse.class
