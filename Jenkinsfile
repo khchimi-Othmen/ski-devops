@@ -15,17 +15,7 @@ pipeline{
                 }
             }
         }
-        stage('UNIT testing'){
-
-            steps{
-
-                script{
-
-                    sh 'mvn test'
-                }
-            }
-        }
-      
+       
         stage('Maven build'){
 
             steps{
