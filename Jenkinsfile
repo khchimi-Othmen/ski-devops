@@ -43,7 +43,13 @@ pipeline{
             }
              
 
-
+     stage('Déploiement dans Nexus') {
+            steps {
+                sh 'mvn deploy -DskipTests'
+                
+            }
+        }
+        
 
 }
 
