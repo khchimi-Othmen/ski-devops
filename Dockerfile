@@ -4,7 +4,6 @@ COPY pom.xml .
 RUN mvn dependency:resolve
 
 COPY src/ src/
-//RUN mvn clean install 
 
 FROM openjdk:11.0
 WORKDIR /app
