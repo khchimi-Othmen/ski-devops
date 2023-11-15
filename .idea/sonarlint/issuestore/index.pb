@@ -22,3 +22,7 @@ n
 >src/main/java/tn/esprit/spring/services/SkierServicesImpl.java,3\3\33a7f3cb7da67e63398f5287557c38222e298242
 r
 Bsrc/test/java/tn/esprit/spring/services/SkierServicesImplTest.java,2\1\21542c7e5a29717a5ecdeb69fc928fe891ab292b
+u
+Esrc/main/java/tn/esprit/spring/services/SubscriptionServicesImpl.java,d\c\dc280a9271809c8500db57875e2294465d671151
+i
+9src/main/java/tn/esprit/spring/entities/Subscription.java,b\1\b14f6a0a178231e0f89e93b66a3e59d59cba7516

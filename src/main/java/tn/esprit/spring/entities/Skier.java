@@ -31,7 +31,7 @@ public class Skier implements Serializable {
 	LocalDate dateOfBirth;
 	String city;
 
-	@JsonIgnore
+
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	Subscription subscription;
 
