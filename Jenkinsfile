@@ -49,7 +49,7 @@ pipeline{
                                 nexusArtifactUploader artifacts: [
                                 [
                                 artifactId: 'gestion-station-ski',
-                                classifier: '', file:'target/SKI.jar',
+                                classifier: '', file:'target/ski-devops-1.0.jar',
                                 type: 'jar'
                                 ]
                                 ],
