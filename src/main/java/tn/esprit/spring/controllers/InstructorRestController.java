@@ -33,6 +33,7 @@ public class InstructorRestController {
     }
     @Operation(description = "Retrieve all Instructors")
     @GetMapping("/all")
+    @CrossOrigin(origins = "http://localhost:4200")
     public List<Instructor> getAllInstructors(){
         return instructorServices.retrieveAllInstructors();
     }
