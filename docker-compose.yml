@@ -1,3 +1,65 @@
+#version : '3'
+#services:
+#  mysql:
+#    container_name: mysql
+#    image: mysql:latest
+#    restart: unless-stopped
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=stationSki
+#    ports:
+#      - 3306:3306
+#    networks:
+#      - backend-net
+#
+#
+#  backend-instructor:
+#    container_name: backend-container
+#    image : ahmedmabrouk902/backend
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - mysql
+#    restart: on-failure
+#    ports:
+#      - 8089:8089
+#    environment:
+#      SPRING_APPLICATION_JSON: '{
+#            "spring.datasource.url"  : "jdbc:mysql://mysql:3306/stationSki?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+#            "spring.datasource.username" : "root",
+#            "spring.datasource.password" : "root",
+#            "spring.jpa.show-sql" : "true",
+#            "spring.jpa.hibernate.ddl-auto" : "update",
+#            "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect"
+#          }'
+#    networks:
+#      - backend-net
+#      - frontend-net
+#
+#  frontend-instructor:
+#    container_name: frontend-container
+#    image : ahmedmabrouk902/frontend
+#    ports:
+#      - 4202:4200
+#    depends_on :
+#      - backend-instructor
+#    restart : on-failure
+#    networks :
+#      - frontend-net
+#    command: >
+#      bash -c "npm start"
+#  docker-nginx:
+#    container_name: docker-nginx
+#    build: ./
+#    ports:
+#      - 80:80
+#    command: ["nginx", "-g", "daemon off;"]
+#    links:
+#      - frontend-instructor
+#networks:
+#  backend-net :
+#  frontend-net :
 version : '3'
 services:
   mysql:
@@ -9,28 +71,29 @@ services:
       - MYSQL_DATABASE=stationSki
     ports:
       - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
     networks:
       - backend-net
 
 
   backend-instructor:
     container_name: backend-container
-    image : ahmedmabrouk902/backend
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image : ahmedmabrouk902/backend:5
     depends_on:
       - mysql
+    volumes:
+      - app_data:/app/data
     restart: on-failure
     ports:
       - 8089:8089
     environment:
       SPRING_APPLICATION_JSON: '{
-            "spring.datasource.url"  : "jdbc:mysql://mysql:3306/stationSki?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-            "spring.datasource.username" : "root",
-            "spring.datasource.password" : "root",
-            "spring.jpa.show-sql" : "true",
-            "spring.jpa.hibernate.ddl-auto" : "update",
+            "spring.datasource.url": "jdbc:mysql://mysql:3306/stationSki?createDatabaseIfNotExist=true",
+            "spring.datasource.username": "root",
+            "spring.datasource.password": "root",
+            "spring.jpa.show-sql": "true",
+            "spring.jpa.hibernate.ddl-auto": "update",
             "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL5InnoDBDialect"
           }'
     networks:
@@ -38,25 +101,19 @@ services:
       - frontend-net
 
   frontend-instructor:
-    container_name: frontend-container
-    image : ahmedmabrouk902/frontend
-    ports:
-      - 4202:4200
-    depends_on :
-      - backend-instructor
-    restart : on-failure
-    networks :
-      - frontend-net
-    command: >
-      bash -c "npm start"
-  docker-nginx:
-    container_name: docker-nginx
-    build: ./
-    ports:
-      - 80:80
-    command: ["nginx", "-g", "daemon off;"]
-    links:
-      - frontend-instructor
+      container_name: frontend-container
+      image: ahmedmabrouk902/frontend:45
+      ports:
+        - 4200:4200
+      depends_on:
+        - backend-instructor
+      restart: on-failure
+      networks:
+        - frontend-net
+
+volumes:
+    app_data:
+    db:
 networks:
-  backend-net :
-  frontend-net :
+    backend-net:
+    frontend-net:
