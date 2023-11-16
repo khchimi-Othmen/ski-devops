@@ -41,7 +41,7 @@ services:
     container_name: frontend-container
     image : ahmedmabrouk902/frontend
     ports:
-      - "4202:4200"
+      - 4202:4200
     depends_on :
       - backend-instructor
     restart : on-failure
@@ -53,7 +53,7 @@ services:
     container_name: docker-nginx
     build: ./
     ports:
-      - "80:80"
+      - 80:80
     command: ["nginx", "-g", "daemon off;"]
     links:
       - frontend-instructor
