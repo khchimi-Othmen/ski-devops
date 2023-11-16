@@ -23,23 +23,26 @@ public class InstructorRestController {
 
     @Operation(description = "Add Instructor")
     @PostMapping("/add")
+    @CrossOrigin(origins = "http://192.168.33.10:4200")
     public Instructor addInstructor(@RequestBody Instructor instructor){
         return  instructorServices.addInstructor(instructor);
     }
     @Operation(description = "Add Instructor and Assign To Course")
     @PutMapping("/addAndAssignToCourse/{numCourse}")
+    @CrossOrigin(origins = "http://192.168.33.10:4200")
     public Instructor addAndAssignToInstructor(@RequestBody Instructor instructor, @PathVariable("numCourse")Long numCourse){
         return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
     }
     @Operation(description = "Retrieve all Instructors")
     @GetMapping("/all")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://192.168.33.10:4200")
     public List<Instructor> getAllInstructors(){
         return instructorServices.retrieveAllInstructors();
     }
 
     @Operation(description = "Update Instructor")
     @PutMapping("/update")
+    @CrossOrigin(origins = "http://192.168.33.10:4200")
     public Instructor updateInstructor(@RequestBody UpdatedInstructorDto updatedInstructorDto) {
         Instructor updatedInstructor = mapDtoToInstructor(updatedInstructorDto);
         this.instructor = updatedInstructor;
@@ -55,6 +58,7 @@ public class InstructorRestController {
 
     @Operation(description = "Retrieve Instructor by Id")
     @GetMapping("/get/{id-instructor}")
+    @CrossOrigin(origins = "http://192.168.33.10:4200")
     public Instructor getById(@PathVariable("id-instructor") Long numInstructor){
         return instructorServices.retrieveInstructor(numInstructor);
     }

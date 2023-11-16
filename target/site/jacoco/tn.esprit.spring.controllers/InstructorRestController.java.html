@@ -23,40 +23,44 @@ public class InstructorRestController {
 
     @Operation(description = &quot;Add Instructor&quot;)
     @PostMapping(&quot;/add&quot;)
+    @CrossOrigin(origins = &quot;http://192.168.33.10:4200&quot;)
     public Instructor addInstructor(@RequestBody Instructor instructor){
-<span class="nc" id="L27">        return  instructorServices.addInstructor(instructor);</span>
+<span class="nc" id="L28">        return  instructorServices.addInstructor(instructor);</span>
     }
     @Operation(description = &quot;Add Instructor and Assign To Course&quot;)
     @PutMapping(&quot;/addAndAssignToCourse/{numCourse}&quot;)
+    @CrossOrigin(origins = &quot;http://192.168.33.10:4200&quot;)
     public Instructor addAndAssignToInstructor(@RequestBody Instructor instructor, @PathVariable(&quot;numCourse&quot;)Long numCourse){
-<span class="nc" id="L32">        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);</span>
+<span class="nc" id="L34">        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);</span>
     }
     @Operation(description = &quot;Retrieve all Instructors&quot;)
     @GetMapping(&quot;/all&quot;)
-    @CrossOrigin(origins = &quot;http://localhost:4200&quot;)
+    @CrossOrigin(origins = &quot;http://192.168.33.10:4200&quot;)
     public List&lt;Instructor&gt; getAllInstructors(){
-<span class="nc" id="L38">        return instructorServices.retrieveAllInstructors();</span>
+<span class="nc" id="L40">        return instructorServices.retrieveAllInstructors();</span>
     }
 
     @Operation(description = &quot;Update Instructor&quot;)
     @PutMapping(&quot;/update&quot;)
+    @CrossOrigin(origins = &quot;http://192.168.33.10:4200&quot;)
     public Instructor updateInstructor(@RequestBody UpdatedInstructorDto updatedInstructorDto) {
-<span class="nc" id="L44">        Instructor updatedInstructor = mapDtoToInstructor(updatedInstructorDto);</span>
-<span class="nc" id="L45">        this.instructor = updatedInstructor;</span>
-<span class="nc" id="L46">        return instructorServices.updateInstructor(updatedInstructor);</span>
+<span class="nc" id="L47">        Instructor updatedInstructor = mapDtoToInstructor(updatedInstructorDto);</span>
+<span class="nc" id="L48">        this.instructor = updatedInstructor;</span>
+<span class="nc" id="L49">        return instructorServices.updateInstructor(updatedInstructor);</span>
     }
     // Mapping method to convert DTO to internal model
     private Instructor mapDtoToInstructor(UpdatedInstructorDto updatedInstructorDto) {
-<span class="nc" id="L50">        Instructor instructor = new Instructor();</span>
-<span class="nc" id="L51">        BeanUtils.copyProperties(updatedInstructorDto, instructor);</span>
-<span class="nc" id="L52">        return instructor;</span>
+<span class="nc" id="L53">        Instructor instructor = new Instructor();</span>
+<span class="nc" id="L54">        BeanUtils.copyProperties(updatedInstructorDto, instructor);</span>
+<span class="nc" id="L55">        return instructor;</span>
     }
 
 
     @Operation(description = &quot;Retrieve Instructor by Id&quot;)
     @GetMapping(&quot;/get/{id-instructor}&quot;)
+    @CrossOrigin(origins = &quot;http://192.168.33.10:4200&quot;)
     public Instructor getById(@PathVariable(&quot;id-instructor&quot;) Long numInstructor){
-<span class="nc" id="L59">        return instructorServices.retrieveInstructor(numInstructor);</span>
+<span class="nc" id="L63">        return instructorServices.retrieveInstructor(numInstructor);</span>
     }
 
 }
