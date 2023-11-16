@@ -1,6 +1,7 @@
 version : '3'
 services:
   mysql:
+    container_name: mysqldatabase
     image: mysql:latest
     restart: unless-stopped
     environment:
@@ -13,7 +14,11 @@ services:
 
 
   backend-instructor:
+    container_name: backend-container
     image : ahmedmabrouk902/backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
     depends_on:
       - mysql
     restart: on-failure
@@ -30,3 +35,28 @@ services:
           }'
     networks:
       - backend-net
+      - frontend-net
+
+  frontend-instructor:
+    container_name: frontend-container
+    image : ahmedmabrouk902/frontend
+    ports:
+      - "4202:4200"
+    depends_on :
+      - backend-instructor
+    restart : on-failure
+    networks :
+      - frontend-net
+    command: >
+      bash -c "npm start"
+  docker-nginx:
+    container_name: docker-nginx
+    build: ./
+    ports:
+      - "80:80"
+    command: ["nginx", "-g", "daemon off;"]
+    links:
+      - frontend-instructor
+networks:
+  backend-net :
+  frontend-net :
